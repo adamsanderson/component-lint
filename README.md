@@ -1,4 +1,4 @@
-builder.js
+component-lint
 ==========
 
 Component lint tool, validates your components against the 
