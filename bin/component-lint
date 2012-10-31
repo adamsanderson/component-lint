@@ -1,0 +1,54 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var program = require('commander')
+  , spec = require('..')
+  , Reporter = require('../lib/reporter')
+  , path = require('path')
+  , fs = require('fs');
+
+// options
+
+program
+  .option('-v, --verbose', 'output verbose validation information');
+
+// examples
+
+program.on('--help', function(){
+  console.log('  Examples:');
+  console.log();
+  console.log('    # check this component');
+  console.log('    $ component lint');
+  console.log();
+});
+
+program.parse(process.argv);
+
+// load json
+
+var componentRoot = program.args[0] || '.';
+var componentPath = path.resolve(componentRoot, 'component.json');
+var component;
+
+try {
+  component = JSON.parse(fs.readFileSync(componentPath));
+} catch (err) {
+  console.error("Could not read", componentPath);
+  process.exit(1);
+}
+
+var linter = spec(componentRoot, component);
+var reporter = new Reporter(linter, program.verbose);
+linter.run(function(err, res){
+  if (err) {
+    if (err.stack){
+      console.error(err.stack);
+    } else {
+      console.error(err);
+    }
+    process.exit(1);
+  }
+});

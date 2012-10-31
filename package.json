@@ -1,0 +1,29 @@
+{
+  "name": "component-lint",
+  "version": "0.0.0",
+  "description": "Component lint tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/adamsanderson/validate-component.git"
+  },
+  "keywords": [
+    "component",
+    "lint",
+    "validate"
+  ],
+  "dependencies": {
+    "commander": "1.0.5"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "bin": {
+    "component-lint": "bin/component-lint"
+  },
+  "author": "Adam Sanderson",
+  "license": "BSD"
+}
